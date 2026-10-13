@@ -1,0 +1,30 @@
+{
+  "name": "com.duolabz.monetization",
+  "version": "2.0.0-rc.1",
+  "displayName": "Duo Monetization (Binary)",
+  "description": "Production-oriented Firebase Remote Config, Google Mobile Ads, consent, app-open safety, and telemetry framework for DuoLabz Unity games.",
+  "unity": "6000.4",
+  "dependencies": {
+    "com.unity.modules.unitywebrequest": "1.0.0",
+    "com.unity.ugui": "2.0.0"
+  },
+  "author": {
+    "name": "DuoLabz",
+    "url": "https://duolabz.ae"
+  },
+  "keywords": [
+    "ads",
+    "admob",
+    "firebase",
+    "monetization",
+    "telemetry"
+  ],
+  "samples": [
+    {
+      "displayName": "Basic Integration",
+      "description": "Game-facing calls for banners, interstitials, rewarded ads, app-open safety, privacy options, and analytics.",
+      "path": "Samples~/Basic Integration"
+    }
+  ],
+  "license": "Proprietary"
+}

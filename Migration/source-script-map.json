@@ -1,0 +1,28 @@
+{
+  "scripts": [
+    {
+      "guid": "ce064afc2c3de4e41b77fc5a4407dc8e",
+      "type": "AdTelemetryManager"
+    },
+    {
+      "guid": "0c568252b52614c9ab457021f9d99b3d",
+      "type": "AdmobManager"
+    },
+    {
+      "guid": "c1070f84943544f5d814e049709160dc",
+      "type": "FirebaseManager"
+    },
+    {
+      "guid": "8828acf82c7bd493983dc8709a725808",
+      "type": "MainThreadDispatcher"
+    },
+    {
+      "guid": "a351b04b8496d4f48b80e1a33e9af803",
+      "type": "DuoLabz.Monetization.DuoMonetizationSettings"
+    },
+    {
+      "guid": "b992ab6af2a6e4e129de578e71c1efbb",
+      "type": "DuoLabz.Monetization.DuoMonetizationBootstrap"
+    }
+  ]
+}
