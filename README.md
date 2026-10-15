@@ -1,13 +1,15 @@
 # Duo Monetization — binary package
 
-Release candidate **2.0.0-rc.1**, built for Unity **6000.4.1f1**. Android/iOS physical-device acceptance testing is required before production adoption. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
+Release candidate **2.0.0-rc.2**, built for Unity **6000.4.1f1**. Android/iOS physical-device acceptance testing is required before production adoption. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
+
+This update starts the SDK callback processor before requesting UMP consent, correcting a startup-order issue that could hold consent completion until the 15-second watchdog. Ads still initialize only after the privacy/configuration gates permit them. Update the Git tag in your existing package dependency; migration does not need to be repeated when updating from rc.1.
 
 ## Installation
 
 1. Authenticate GitHub with an account authorized for the private `DuoFrameworkBinary` repository. Install Git; Git LFS is not required.
 2. Install through Package Manager > Install package from Git URL:
 
-   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.0.0-rc.1`
+   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.0.0-rc.2`
 
 3. Open Tools > DuoLabz > Monetization > Setup Assistant. Install **Google Mobile Ads 11.4.0**, **Firebase App, Analytics and Remote Config 13.16.0**, and **External Dependency Manager 1.2.188** as Unity packages. The DLLs enable automatically after dependencies are present and Unity recompiles. This candidate deliberately requires the validated versions; changing SDK versions requires a new tested binary release. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
