@@ -1,0 +1,10 @@
+<linker>
+  <assembly fullname="GameAnalyticsSDK" ignoreIfMissing="1">
+    <type fullname="GameAnalyticsSDK.GameAnalytics" preserve="all" />
+    <type fullname="GameAnalyticsSDK.GAProgressionStatus" preserve="all" />
+  </assembly>
+  <assembly fullname="Assembly-CSharp" ignoreIfMissing="1">
+    <type fullname="GameAnalyticsSDK.GameAnalytics" preserve="all" />
+    <type fullname="GameAnalyticsSDK.GAProgressionStatus" preserve="all" />
+  </assembly>
+</linker>

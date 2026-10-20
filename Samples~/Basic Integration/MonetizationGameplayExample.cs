@@ -5,6 +5,13 @@ public sealed class MonetizationGameplayExample : MonoBehaviour
 {
     private const string StoreModalReason = "store-purchase";
 
+    // Enable progression in Duo settings. Call this only after the game's analytics privacy decision.
+    public void ApplyAnalyticsPermission(bool allowed) => DuoProgression.SetCollectionAllowed(allowed);
+
+    public void OnLevelStarted(string stableLevelName) => DuoProgression.Start(stableLevelName);
+    public void OnLevelCompleted(string stableLevelName) => DuoProgression.Complete(stableLevelName);
+    public void OnLevelFailed(string stableLevelName) => DuoProgression.Fail(stableLevelName, reason: "gameplay_failure");
+
     private void OnEnable()
     {
         DuoMonetization.StateChanged += HandleMonetizationStateChanged;

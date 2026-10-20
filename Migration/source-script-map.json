@@ -23,6 +23,10 @@
     {
       "guid": "b992ab6af2a6e4e129de578e71c1efbb",
       "type": "DuoLabz.Monetization.DuoMonetizationBootstrap"
+    },
+    {
+      "guid": "c1bc79970a5e4f43b49c2706d5b20b32",
+      "type": "DuoLabz.Monetization.DuoProgressionManager"
     }
   ]
 }
