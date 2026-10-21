@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Progression preview **2.1.0-rc.2**, built for Unity **6000.4.1f1**. Adds optional GameAnalytics progression and Duo server funnels. **This candidate requires Android/iOS pilot acceptance before production rollout.** Stable Android release **2.0.0** remains available unchanged. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
+Progression preview **2.1.0-rc.3**, built for Unity **6000.4.1f1**. Adds optional GameAnalytics progression and Duo server funnels. **This candidate requires Android/iOS pilot acceptance before production rollout.** Stable Android release **2.0.0** remains available unchanged. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
 
 This update starts the SDK callback processor before requesting UMP consent, correcting a startup-order issue that could hold consent completion until the 15-second watchdog. Ads still initialize only after the privacy/configuration gates permit them. Update the Git tag in your existing package dependency; migration does not need to be repeated when updating from rc.1.
 
@@ -9,7 +9,7 @@ This update starts the SDK callback processor before requesting UMP consent, cor
 1. Authenticate GitHub with an account authorized for the private `DuoFrameworkBinary` repository. Install Git; Git LFS is not required.
 2. Install through Package Manager > Install package from Git URL:
 
-   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.1.0-rc.2`
+   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.1.0-rc.3`
 
 3. Open Tools > DuoLabz > Monetization > Setup Assistant. Install **Google Mobile Ads 11.4.0**, **Firebase App, Analytics and Remote Config 13.16.0**, and **External Dependency Manager 1.2.188** as Unity packages. The DLLs enable automatically after dependencies are present and Unity recompiles. This release deliberately requires the validated versions; changing SDK versions requires a new tested binary release. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
@@ -38,6 +38,8 @@ DuoProgression.Fail("Classic", "World_2", "Level_5", reason: "time_limit");
 ```
 
 Use exactly the same path for an attempt's start/outcome. Call on the Unity main thread. Names are stable strings (1–64 characters per part, no colons/control characters), not random IDs. Repeated Start on an active path is ignored; retries begin after an outcome. Outcomes without Start are ignored with a warning. Quitting/backgrounding is not failure. Duration measures elapsed time including background time.
+
+Each newly recorded progression event writes a Unity Console/Android Logcat line, including in non-development builds: `[Duo Progression] Recorded locally | start | level_001 | environment=development`. Filter for `[Duo Progression]` to check call timing. This confirms local queue acceptance, not Firebase/GameAnalytics/server receipt. Duplicate Starts and events blocked by collection permission do not log as recorded. Player identifiers, credentials and free-text failure details are not logged; keep level names free of personal data.
 
 Progression Requires Consent defaults on: no collection/replay before `SetCollectionAllowed(true)`. This is separate from ad consent and does not control Firebase automatic events or code outside Duo. Configure the game's privacy disclosures and applicable SDK controls. Automatic development/staging progression goes only to Duo unless the corresponding vendor QA option is explicitly enabled **with separate QA projects/games**.
 
