@@ -1,17 +1,25 @@
 # Duo Monetization — binary package
 
-Release **2.2.0**, built for Unity **6000.4.1f1**. Adds immediate ad telemetry capture, durable queue backups, conservative retry pacing, ad-source/revenue-precision metadata and delivery diagnostics. The owner authorized production release based on automated validation on 2026-10-21. **This telemetry update has not received new Android or iOS physical-device testing.** Earlier tags remain available for rollback. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
+Prerelease **2.3.0-rc.1**, built for Unity **6000.4.1f1**. Adds guided SDK installation and safe download cleanup. Recommended: **Google Mobile Ads 11.5.0**, matching **Firebase App/Analytics/Remote Config 13.17.0**, **Dependency Manager 1.2.189**, and optional **GameAnalytics 8.3.0**. Compatible existing SDK versions are retained unless you explicitly select replacements. **Native Android/iOS device acceptance of this SDK combination remains pending.** Stable 2.2.0 remains available for production rollback. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
 
-Consent startup and gameplay callbacks retain their main-thread dispatch. Impression, click and revenue callbacks are persisted before waiting for Unity to resume. Server 1.3.0 stores the optional diagnostics; older clients and older telemetry servers remain compatible. Update the Git tag in your game, then rebuild and release the game to deliver these fixes to players. Migration does not need to be repeated for an existing binary installation.
+## SDK installation and cleanup
+
+Open **Tools > DuoLabz > Monetization > Manage SDKs** (also available through **SDK Installation** in the Setup Assistant). Review installed, recommended and tested/untested status. **Preview SDK installation** shows every install/replacement before confirmation. Optional GameAnalytics is off by default; its archive opens Unity's import preview. Existing Firebase configuration files, AdMob app IDs and Duo settings are preserved.
+
+The installer configures the narrow AdMob OpenUPM registry when needed, downloads versioned Google/GameAnalytics archives from official HTTPS sources and verifies SHA-256 hashes before installation. Downloads finish before the package manifest changes. The manifest and existing lock file are backed up under `Library/DuoSdkSetup/backups`; setup resumes after recompilation. The window offers a guarded manifest restore, and never automatically deletes legacy SDKs from Assets. Migrate duplicate SDK copies manually first.
+
+Temporary `.part` files and imported/cancelled GameAnalytics `.unitypackage` downloads are removed automatically. **Referenced Firebase/Dependency Manager `.tgz` files are not disposable installers:** they stay in `Packages/DuoSdkArchives`. Commit that folder with `Packages/manifest.json` and `Packages/packages-lock.json` so teammates can resolve the same dependencies. **Clean unused setup files** removes only unchanged archives downloaded by Duo that no manifest, lock file or rollback backup references. Backups and user-owned files are preserved.
+
+Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.0.0 (all installed Firebase products must match); Dependency Manager >=1.2.186 and <2.0.0. Untested versions inside those ranges show a warning. Optional GameAnalytics is validated against 8.3.0. Major upgrades and prerelease SDKs require separate compatibility work. Direct source/download buttons remain available as an installation fallback.
 
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
 2. Install through Package Manager > Install package from Git URL:
 
-   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.2.0`
+   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.3.0-rc.1`
 
-3. Open Tools > DuoLabz > Monetization > Setup Assistant. Install **Google Mobile Ads 11.4.0**, **Firebase App, Analytics and Remote Config 13.16.0**, and **External Dependency Manager 1.2.188** as Unity packages. The DLLs enable automatically after dependencies are present and Unity recompiles. This release deliberately requires the validated versions; changing SDK versions requires a new tested binary release. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
+3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
 5. Run Create or Repair Setup. This creates the settings asset, bootstrap prefab and `Assets/DuoMonetization/link.xml`. Keep the preservation file in the game; Unity does not support placing that file only inside a package.
 6. Configure Android/iOS fallback IDs and the per-game telemetry endpoint/credential in the settings Inspector. Keep production credentials out of shared repositories and samples.
