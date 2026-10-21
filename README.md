@@ -1,15 +1,15 @@
 # Duo Monetization — binary package
 
-Progression preview **2.1.0-rc.3**, built for Unity **6000.4.1f1**. Adds optional GameAnalytics progression and Duo server funnels. **This candidate requires Android/iOS pilot acceptance before production rollout.** Stable Android release **2.0.0** remains available unchanged. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
+Release **2.1.0**, built for Unity **6000.4.1f1**. Includes optional GameAnalytics progression, Duo server funnels and per-event diagnostic logs. **Android device acceptance and release were approved by the project owner on 2026-10-21. iOS physical-device validation is pending; test iOS before shipping an iOS game.** Earlier tags remain available for rollback. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
 
 This update starts the SDK callback processor before requesting UMP consent, correcting a startup-order issue that could hold consent completion until the 15-second watchdog. Ads still initialize only after the privacy/configuration gates permit them. Update the Git tag in your existing package dependency; migration does not need to be repeated when updating from rc.1.
 
 ## Installation
 
-1. Authenticate GitHub with an account authorized for the private `DuoFrameworkBinary` repository. Install Git; Git LFS is not required.
+1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
 2. Install through Package Manager > Install package from Git URL:
 
-   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.1.0-rc.3`
+   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.1.0`
 
 3. Open Tools > DuoLabz > Monetization > Setup Assistant. Install **Google Mobile Ads 11.4.0**, **Firebase App, Analytics and Remote Config 13.16.0**, and **External Dependency Manager 1.2.188** as Unity packages. The DLLs enable automatically after dependencies are present and Unity recompiles. This release deliberately requires the validated versions; changing SDK versions requires a new tested binary release. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
@@ -47,7 +47,7 @@ The app/environment-specific random Duo reference persists across sessions; clea
 
 Open the application's **Progression overview** or **Player funnels** in Console. Choices appear only after matching events are received. Optional empty hierarchy parts mean no further part, not any descendant. Reports support ordered/unordered steps after entry, completion windows, revisions, environments and CSV export. Dates select each installation's first matching entry, not all later outcomes. Pending is not confirmed churn. Reports may differ from vendor charts due to session/identity, timing and counting definitions. Server retries are deduplicated; vendor SDK delivery across crashes is not guaranteed exactly once.
 
-Validate both mobile platforms, consent allow/deny, flat/nested paths, retries, offline/restart delivery, QA separation, SDK dashboards and known funnel journeys before replacing stable packages in production games.
+Validate each target platform, consent allow/deny, flat/nested paths, retries, offline/restart delivery, QA separation, SDK dashboards and known funnel journeys before rolling out to its production games. Android delivery is owner-approved; iOS device acceptance remains pending.
 
 ## Upgrade from the source package
 
