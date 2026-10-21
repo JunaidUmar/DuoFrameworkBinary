@@ -1,15 +1,15 @@
 # Duo Monetization — binary package
 
-Release **2.1.0**, built for Unity **6000.4.1f1**. Includes optional GameAnalytics progression, Duo server funnels and per-event diagnostic logs. **Android device acceptance and release were approved by the project owner on 2026-10-21. iOS physical-device validation is pending; test iOS before shipping an iOS game.** Earlier tags remain available for rollback. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
+Release **2.2.0**, built for Unity **6000.4.1f1**. Adds immediate ad telemetry capture, durable queue backups, conservative retry pacing, ad-source/revenue-precision metadata and delivery diagnostics. The owner authorized production release based on automated validation on 2026-10-21. **This telemetry update has not received new Android or iOS physical-device testing.** Earlier tags remain available for rollback. Runtime and Editor implementation is compiled into DLLs; usage examples remain readable. This does not prevent decompilation.
 
-This update starts the SDK callback processor before requesting UMP consent, correcting a startup-order issue that could hold consent completion until the 15-second watchdog. Ads still initialize only after the privacy/configuration gates permit them. Update the Git tag in your existing package dependency; migration does not need to be repeated when updating from rc.1.
+Consent startup and gameplay callbacks retain their main-thread dispatch. Impression, click and revenue callbacks are persisted before waiting for Unity to resume. Server 1.3.0 stores the optional diagnostics; older clients and older telemetry servers remain compatible. Update the Git tag in your game, then rebuild and release the game to deliver these fixes to players. Migration does not need to be repeated for an existing binary installation.
 
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
 2. Install through Package Manager > Install package from Git URL:
 
-   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.1.0`
+   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.2.0`
 
 3. Open Tools > DuoLabz > Monetization > Setup Assistant. Install **Google Mobile Ads 11.4.0**, **Firebase App, Analytics and Remote Config 13.16.0**, and **External Dependency Manager 1.2.188** as Unity packages. The DLLs enable automatically after dependencies are present and Unity recompiles. This release deliberately requires the validated versions; changing SDK versions requires a new tested binary release. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
@@ -47,7 +47,7 @@ The app/environment-specific random Duo reference persists across sessions; clea
 
 Open the application's **Progression overview** or **Player funnels** in Console. Choices appear only after matching events are received. Optional empty hierarchy parts mean no further part, not any descendant. Reports support ordered/unordered steps after entry, completion windows, revisions, environments and CSV export. Dates select each installation's first matching entry, not all later outcomes. Pending is not confirmed churn. Reports may differ from vendor charts due to session/identity, timing and counting definitions. Server retries are deduplicated; vendor SDK delivery across crashes is not guaranteed exactly once.
 
-Validate each target platform, consent allow/deny, flat/nested paths, retries, offline/restart delivery, QA separation, SDK dashboards and known funnel journeys before rolling out to its production games. Android delivery is owner-approved; iOS device acceptance remains pending.
+Validate each target platform, consent allow/deny, flat/nested paths, retries, offline/restart delivery, QA separation, SDK dashboards and known funnel journeys before rolling out to its production games. Production rollout is owner-approved on automated evidence; new Android/iOS physical-device testing of this release remains pending.
 
 ## Upgrade from the source package
 
