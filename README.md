@@ -76,3 +76,5 @@ Use development/test-ad builds for QA. Check consent allow/deny, all ad formats,
 ## Updating
 
 Change the Git URL tag to an approved newer version in Package Manager or `Packages/manifest.json`. Release tags are immutable. SDK compatibility is listed for each release; do not silently upgrade third-party SDKs beyond the validated version set.
+
+Crashlytics is available as an optional SDK in Manage SDKs and matches the installed Firebase release. New settings prefill the Duo telemetry URL; Create or Repair Setup fills a blank URL while preserving custom URLs. Progression derives its route from telemetry; existing custom overrides are preserved and hidden from normal editing. Verify Crashlytics reporting with a device test crash and platform symbol setup.
