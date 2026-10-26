@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Prerelease **2.3.0-rc.1**, built for Unity **6000.4.1f1**. Adds guided SDK installation and safe download cleanup. Recommended: **Google Mobile Ads 11.5.0**, matching **Firebase App/Analytics/Remote Config 13.17.0**, **Dependency Manager 1.2.189**, and optional **GameAnalytics 8.3.0**. Compatible existing SDK versions are retained unless you explicitly select replacements. **Native Android/iOS device acceptance of this SDK combination remains pending.** Stable 2.2.0 remains available for production rollback. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
+Stable **2.3.0**, built for Unity **6000.4.1f1**. Adds guided SDK installation, optional matching Firebase Crashlytics, safe download cleanup, a prefilled telemetry endpoint and automatic progression endpoint derivation. Recommended: **Google Mobile Ads 11.5.0**, matching **Firebase App/Analytics/Remote Config 13.17.0**, **Dependency Manager 1.2.189**, and optional **GameAnalytics 8.3.0**. Compatible existing SDK versions are retained unless you explicitly select replacements. **Native Android/iOS device acceptance of this SDK combination remains pending.** The owner authorized production release on 2026-10-26 using automated validation; physical-device crash reporting and native SDK acceptance remain pending. Stable 2.2.0 remains available for rollback. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
 
 ## SDK installation and cleanup
 
