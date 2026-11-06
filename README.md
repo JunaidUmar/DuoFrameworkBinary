@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Candidate **2.4.0-rc.1**, built for Unity **6000.4.1f1**. Adds DuoPulse build/runtime integration checklist reporting using the existing per-game telemetry credential. This candidate requires device acceptance before promotion; stable **2.3.0** remains the production release. No new third-party SDK is required. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
+Candidate **2.4.0-rc.2**, built for Unity **6000.4.1f1**. Adds DuoPulse build/runtime integration checklist reporting using the existing per-game telemetry credential. New settings default to `https://pulse.duolabz.ae/api/v1/telemetry/events`; saved legacy endpoints/tokens remain intact. This candidate requires device acceptance before promotion; stable **2.3.0** remains the production release. No new third-party SDK is required. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
 
 ## SDK installation and cleanup
 
@@ -15,7 +15,7 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
-2. For this unpublished candidate, use Package Manager > Add package from disk and select the supplied candidate folder’s `package.json`. Do this in a test game first. The published stable release remains `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.3.0`.
+2. In Package Manager choose Install package from Git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.4.0-rc.2`. Test this prerelease in one game first. The published stable release remains `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.3.0`.
 
 3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
