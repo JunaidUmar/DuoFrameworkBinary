@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Candidate **2.4.0-rc.2**, built for Unity **6000.4.1f1**. Adds DuoPulse build/runtime integration checklist reporting using the existing per-game telemetry credential. New settings default to `https://pulse.duolabz.ae/api/v1/telemetry/events`; saved legacy endpoints/tokens remain intact. This candidate requires device acceptance before promotion; stable **2.3.0** remains the production release. No new third-party SDK is required. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
+Stable **2.4.0**, built for Unity **6000.4.1f1**. Adds DuoPulse build/runtime integration checklist reporting using the existing per-game telemetry credential. New settings default to `https://pulse.duolabz.ae/api/v1/telemetry/events`; saved legacy endpoints/tokens remain intact. Promoted to stable by the owner on 2026-11-06 using automated validation. Native Android/iOS device and IL2CPP acceptance remains pending; **2.3.0** remains available for rollback. No new third-party SDK is required. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
 
 ## SDK installation and cleanup
 
@@ -15,7 +15,7 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
-2. In Package Manager choose Install package from Git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.4.0-rc.2`. Test this prerelease in one game first. The published stable release remains `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.3.0`.
+2. In Package Manager choose Install package from Git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.4.0`. Validate in one configured game before broad rollout. The previous stable release is `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.3.0`.
 
 3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
@@ -98,7 +98,7 @@ Leave **Integration Details Revision** at `-1` unless the developer knows the po
 The dashboard is application > **Integration checklist**. Select the correct platform/environment/build. Runtime snapshots are coalesced (at least 60 seconds between changes), with unchanged callbacks suppressed. The eight-entry persistent retry queue is scoped to endpoint, credential, environment and build using a hash; files contain reports, not credentials, player/device IDs, raw logs or Google file contents. Retries preserve report UUID/body, back off to 30 minutes, expire after seven days, reject redirects, and require a matching server acknowledgment before removal. Invalid reports are discarded; rejected credentials suspend uploads for the current run. Reporting failures do not stop gameplay. Disabling telemetry or checklist reporting stops checklist uploads. Device networking, native SDK behavior and Google file packaging still require a game/device test.
 
 
-### Banner layout API (2.4.0-rc.1 candidate)
+### Banner layout API
 
 Inspector settings select Adaptive/Standard banner size, Top/Bottom banner position and Top/Bottom/Center rectangle position. Standard is 320×50 dp; Medium Rectangle remains 300×250 dp using the separate rectangle IDs. Existing no-argument calls keep using configured defaults (adaptive-bottom and rectangle-top for existing projects).
 
