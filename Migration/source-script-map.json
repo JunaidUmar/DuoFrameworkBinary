@@ -21,6 +21,14 @@
       "type": "DuoLabz.Monetization.DuoMonetizationSettings"
     },
     {
+      "guid": "7f3b3b9c0dbd4457b1de11eb54787556",
+      "type": "DuoLabz.Monetization.DuoIntegrationBuildInfo"
+    },
+    {
+      "guid": "1696f1da604c461c8e7008f6893cbd03",
+      "type": "DuoLabz.Monetization.DuoIntegrationReporter"
+    },
+    {
       "guid": "b992ab6af2a6e4e129de578e71c1efbb",
       "type": "DuoLabz.Monetization.DuoMonetizationBootstrap"
     },

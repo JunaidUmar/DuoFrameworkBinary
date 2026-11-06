@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Stable **2.3.0**, built for Unity **6000.4.1f1**. Adds guided SDK installation, optional matching Firebase Crashlytics, safe download cleanup, a prefilled telemetry endpoint and automatic progression endpoint derivation. Recommended: **Google Mobile Ads 11.5.0**, matching **Firebase App/Analytics/Remote Config 13.17.0**, **Dependency Manager 1.2.189**, and optional **GameAnalytics 8.3.0**. Compatible existing SDK versions are retained unless you explicitly select replacements. **Native Android/iOS device acceptance of this SDK combination remains pending.** The owner authorized production release on 2026-10-26 using automated validation; physical-device crash reporting and native SDK acceptance remain pending. Stable 2.2.0 remains available for rollback. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
+Candidate **2.4.0-rc.1**, built for Unity **6000.4.1f1**. Adds DuoPulse build/runtime integration checklist reporting using the existing per-game telemetry credential. This candidate requires device acceptance before promotion; stable **2.3.0** remains the production release. No new third-party SDK is required. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
 
 ## SDK installation and cleanup
 
@@ -15,9 +15,7 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
-2. Install through Package Manager > Install package from Git URL:
-
-   `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.3.0-rc.1`
+2. For this unpublished candidate, use Package Manager > Add package from disk and select the supplied candidate folder’s `package.json`. Do this in a test game first. The published stable release remains `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.3.0`.
 
 3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
@@ -78,3 +76,43 @@ Use development/test-ad builds for QA. Check consent allow/deny, all ad formats,
 Change the Git URL tag to an approved newer version in Package Manager or `Packages/manifest.json`. Release tags are immutable. SDK compatibility is listed for each release; do not silently upgrade third-party SDKs beyond the validated version set.
 
 Crashlytics is available as an optional SDK in Manage SDKs and matches the installed Firebase release. New settings prefill the Duo telemetry URL; Create or Repair Setup fills a blank URL while preserving custom URLs. Progression derives its route from telemetry; existing custom overrides are preserved and hidden from normal editing. Verify Crashlytics reporting with a device test crash and platform symbol setup.
+
+## DuoPulse integration checklist
+
+Keep **Integration Reporting Enabled** and **Telemetry Enabled** on in Duo settings. Development/staging reporting is automatic; production/release builds additionally require **Integration Reporting In Production** to be enabled explicitly. The standard configured telemetry URL resolves `/api/v1/integration/reports` on the same HTTPS host, supporting both Pulse and the legacy host. Custom nonstandard telemetry paths do not enable this feature. Editor play mode does not upload reports; make an Android/iOS build and run it on a device.
+
+Build processing embeds a generated per-build UUID and non-secret setup results into the compiled scene's bootstrap. Original scenes, prefabs, Google files and credential settings are not rewritten. No requests are made on the build machine. When the game runs, it reports those embedded build facts and a separate runtime snapshot. The report timestamp is when the snapshot was produced for upload, not a claim about when an SDK was installed or when the build was compiled. Existing binaries cannot begin reporting without rebuilding.
+
+Build checks cover Duo settings, installed Firebase/AdMob SDKs, optional GameAnalytics compatibility/keys, the platform Google services file and identifier match, and the AdMob app ID. Multiple matching Google config files fail the file check rather than choosing one silently. Runtime checks report observed Firebase initialization, fresh Remote Config fetch/activation, ad initialization/load, and GameAnalytics initialization when Duo owns it. Cached defaults do not count as a fresh server fetch. Collection states and vendor delivery are not inferred from SDK presence.
+
+Firebase Analytics collection stays **unknown** unless your game explicitly reports the state it set after its privacy decision:
+
+```csharp
+DuoLabz.Monetization.DuoIntegrationChecklist.ReportFirebaseAnalyticsCollection(analyticsEnabled);
+```
+
+This method reports a state; it does not enable/disable Firebase, grant consent, or prove Firebase received events. Optional GameAnalytics remains not applicable when its destination is disabled, and waits for the existing progression privacy flow when enabled.
+
+Leave **Integration Details Revision** at `-1` unless the developer knows the portal revision actually used. This is not the Firebase Remote Config revision. Matching revision numbers are client-reported evidence, not independent content verification.
+
+The dashboard is application > **Integration checklist**. Select the correct platform/environment/build. Runtime snapshots are coalesced (at least 60 seconds between changes), with unchanged callbacks suppressed. The eight-entry persistent retry queue is scoped to endpoint, credential, environment and build using a hash; files contain reports, not credentials, player/device IDs, raw logs or Google file contents. Retries preserve report UUID/body, back off to 30 minutes, expire after seven days, reject redirects, and require a matching server acknowledgment before removal. Invalid reports are discarded; rejected credentials suspend uploads for the current run. Reporting failures do not stop gameplay. Disabling telemetry or checklist reporting stops checklist uploads. Device networking, native SDK behavior and Google file packaging still require a game/device test.
+
+
+### Banner layout API (2.4.0-rc.1 candidate)
+
+Inspector settings select Adaptive/Standard banner size, Top/Bottom banner position and Top/Bottom/Center rectangle position. Standard is 320×50 dp; Medium Rectangle remains 300×250 dp using the separate rectangle IDs. Existing no-argument calls keep using configured defaults (adaptive-bottom and rectangle-top for existing projects).
+
+```csharp
+using DuoLabz.Monetization;
+DuoMonetization.ConfigureBanner(BannerSize.Standard, BannerPosition.Bottom);
+DuoMonetization.ConfigureMediumRectangle(RectanglePosition.Center);
+DuoMonetization.ShowBanner();
+DuoMonetization.ShowBanner(BannerPosition.Top, BannerSize.Adaptive);
+DuoMonetization.ShowMediumRectangle(RectanglePosition.Center);
+DuoMonetization.SetBannerPosition(BannerPosition.Bottom);
+DuoMonetization.SetMediumRectanglePosition(RectanglePosition.Top);
+DuoMonetization.HideBanner();
+DuoMonetization.HideMediumRectangle();
+```
+
+Configure calls may precede initialization; show/hide calls require the Duo instance. Call these APIs on Unity's main thread. Size changes reload while retaining visibility intent; position-only changes move existing views. `GetBannerSizeInPixels()` and `GetMediumRectangleSizeInPixels()` return actual loaded screen-pixel sizes, or zero before ready. Respect Canvas scaling when reserving UI space. Automatic-refresh flags must match AdMob's per-format settings. Physical Android/iOS validation remains pending.
