@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Stable **2.4.0**, built for Unity **6000.4.1f1**. Adds DuoPulse build/runtime integration checklist reporting using the existing per-game telemetry credential. New settings default to `https://pulse.duolabz.ae/api/v1/telemetry/events`; saved legacy endpoints/tokens remain intact. Promoted to stable by the owner on 2026-11-06 using automated validation. Native Android/iOS device and IL2CPP acceptance remains pending; **2.3.0** remains available for rollback. No new third-party SDK is required. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
+Stable **2.4.1**, built for Unity **6000.4.1f1**. Adds DuoPulse build/runtime integration checklist reporting using the existing per-game telemetry credential. New settings default to `https://pulse.duolabz.ae/api/v1/telemetry/events`; saved legacy endpoints/tokens remain intact. This patch adds all four Medium Rectangle corner positions. Authorized for stable release on 2026-11-09 using automated validation. Native Android/iOS device and IL2CPP acceptance remains pending; **2.4.0** remains available for rollback. No new third-party SDK is required. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
 
 ## SDK installation and cleanup
 
@@ -15,7 +15,7 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
-2. In Package Manager choose Install package from Git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.4.0`. Validate in one configured game before broad rollout. The previous stable release is `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.3.0`.
+2. In Package Manager choose Install package from Git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.4.1`. Validate in one configured game before broad rollout. The previous stable release is `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.4.0`.
 
 3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
@@ -100,7 +100,7 @@ The dashboard is application > **Integration checklist**. Select the correct pla
 
 ### Banner layout API
 
-Inspector settings select Adaptive/Standard banner size, Top/Bottom banner position and Top/Bottom/Center rectangle position. Standard is 320×50 dp; Medium Rectangle remains 300×250 dp using the separate rectangle IDs. Existing no-argument calls keep using configured defaults (adaptive-bottom and rectangle-top for existing projects).
+Inspector settings select Adaptive/Standard banner size, Top/Bottom banner position and one of seven rectangle presets (Top, Bottom, Center, or any corner). Standard is 320×50 dp; Medium Rectangle remains 300×250 dp using the separate rectangle IDs. Existing no-argument calls keep using configured defaults (adaptive-bottom and rectangle-top for existing projects).
 
 ```csharp
 using DuoLabz.Monetization;
@@ -109,6 +109,7 @@ DuoMonetization.ConfigureMediumRectangle(RectanglePosition.Center);
 DuoMonetization.ShowBanner();
 DuoMonetization.ShowBanner(BannerPosition.Top, BannerSize.Adaptive);
 DuoMonetization.ShowMediumRectangle(RectanglePosition.Center);
+DuoMonetization.ShowMediumRectangle(RectanglePosition.BottomRight);
 DuoMonetization.SetBannerPosition(BannerPosition.Bottom);
 DuoMonetization.SetMediumRectanglePosition(RectanglePosition.Top);
 DuoMonetization.HideBanner();
