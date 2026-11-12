@@ -21,6 +21,10 @@
       "type": "DuoLabz.Monetization.DuoMonetizationSettings"
     },
     {
+      "guid": "c0ec5960d7184191833bebc419da68e6",
+      "type": "DuoLabz.Monetization.DuoGameSettingsClient"
+    },
+    {
       "guid": "7f3b3b9c0dbd4457b1de11eb54787556",
       "type": "DuoLabz.Monetization.DuoIntegrationBuildInfo"
     },

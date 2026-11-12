@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Stable **2.4.1**, built for Unity **6000.4.1f1**. Adds DuoPulse build/runtime integration checklist reporting using the existing per-game telemetry credential. New settings default to `https://pulse.duolabz.ae/api/v1/telemetry/events`; saved legacy endpoints/tokens remain intact. This patch adds all four Medium Rectangle corner positions. Authorized for stable release on 2026-11-09 using automated validation. Native Android/iOS device and IL2CPP acceptance remains pending; **2.4.0** remains available for rollback. No new third-party SDK is required. Implementation is distributed as DLLs; usage samples stay readable. DLLs can be decompiled.
+Binary release **2.5.0**, built for Unity **6000.4.1f1**. Adds Game Parameters, Framework Settings, and A/B group filters in Player Funnels. Physical-device acceptance for this release remains pending on Android and iOS.
 
 ## SDK installation and cleanup
 
@@ -15,7 +15,7 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
-2. In Package Manager choose Install package from Git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.4.1`. Validate in one configured game before broad rollout. The previous stable release is `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.4.0`.
+2. In Package Manager choose Add package from git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.5.0`. If you have the release ZIP, extract it and choose Add package from disk to select its `package.json`.
 
 3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
@@ -67,7 +67,7 @@ Commit your game first. Do not install source and binary implementations simulta
 
 ## Supported behavior and release checks
 
-Public gameplay calls, priority/fallback handling, UMP-owned consent and telemetry environments are retained. The optional custom manual ATT fallback is not included in this candidate; use the normal Google UMP configuration.
+Public gameplay calls, priority/fallback handling, UMP-owned consent and telemetry environments are retained. Use the normal Google UMP configuration for consent.
 
 Use development/test-ad builds for QA. Check consent allow/deny, all ad formats, rewarded callbacks, app-open suppression, platform-specific IDs, Remote Config/cache/Inspector fallback, analytics, recorded revenue and telemetry uploads. Check both development and release IL2CPP builds. This package contains no Firebase or AdMob SDK binaries or their native installers; install those official dependencies separately.
 
@@ -117,3 +117,25 @@ DuoMonetization.HideMediumRectangle();
 ```
 
 Configure calls may precede initialization; show/hide calls require the Duo instance. Call these APIs on Unity's main thread. Size changes reload while retaining visibility intent; position-only changes move existing views. `GetBannerSizeInPixels()` and `GetMediumRectangleSizeInPixels()` return actual loaded screen-pixel sizes, or zero before ready. Respect Canvas scaling when reserving UI space. Automatic-refresh flags must match AdMob's per-format settings. Physical Android/iOS validation remains pending.
+
+## DuoPulse Game Settings
+
+Use DuoPulse 1.8.0 or later for Game Parameters and Framework Settings. In the application workspace, developers register stable keys with a type and default. Scoped studio managers edit draft values, preview and publish a version for Development, Staging or Production, or restore an earlier version as a new revision. Ad Unit Configuration has its own editor. Keep keys stable for installed builds and use a new key when a type changes.
+
+In the Unity settings asset, enable **Use DuoPulse Game Settings**, copy the application ID from the Game Parameters page into **Duo Pulse Game Id**, and use the existing per-game telemetry URL and token. Choose **Game Settings Environment** or leave it on Automatic, which uses Development for Editor/development builds and Production for release builds. Settings retrieval uses the application token independently of telemetry collection.
+
+At startup, Unity loads the last valid snapshot for this game and environment. Background refresh downloads a complete published version and stages it. Call `DuoConfig.ActivatePending()` on the main thread at a safe transition, such as opening the lobby or starting a new run. `DuoConfig.HasPendingChanges` indicates that a version is available. The first launch can use the fallbacks bundled in game code.
+
+```csharp
+DuoConfig.ActivatePending();
+int interval = DuoConfig.GetInt("special_level_counter", fallback: 5);
+var order = DuoConfig.GetStringList("level_order", new[] { "level_01", "level_02" });
+```
+
+Use `GetBool`, `GetInt`, `GetNumber`, `GetString`, `GetDateTime`, `GetStringList` or `GetIntList` for the matching type. Dates are UTC. Unknown keys and mismatched types use the caller's fallback. `DuoConfig.Revision` identifies the active version. Removing a published framework override lets the current local/Firebase interval take over again. Existing game code decides when to request an interstitial.
+
+For an A/B test, the manager sets the regular parameter value for group A and a second value plus a percentage for group B, then publishes to the selected environment. Unity chooses the group using a random installation identifier stored locally. The existing typed getters return that group's value after activation. Older Game Settings builds use the regular value. Removing the test and publishing gives everyone the regular value again.
+
+For funnel reporting, publish a named test and enable DuoPulse Game Settings and server progression reporting in the same environment. Apply the settings at your usual safe transition. The first regular progression start reports the active group using the existing progression identity. Existing progression events from that point are eligible for the group comparison. In Player Funnels, open your existing funnel and select the named test.
+
+For the first test, publish `special_level_counter` as an integer and `level_order` as a string list in Development. Run a development build, activate the new version at the lobby, and verify both values. Check a disconnected restart and restore the preceding revision to verify the cache and rollback path.
