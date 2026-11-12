@@ -1,10 +1,10 @@
 {
-  "version": "2.5.0",
+  "version": "2.6.0-rc.1",
   "unity": "6000.4.1f1",
   "sha256": {
-    "Editor/DuoLabz.Monetization.Binary.Installer.dll": "d41ba4c7c85591fc65adca64b2e6ce70131ba0f3a72f35f7634dc77dce20c7d1",
+    "Editor/DuoLabz.Monetization.Binary.Installer.dll": "11375220f7c267e45e6ea9510b0f4832485a2a03f26388e6ebff6c57046e804c",
     "Editor/DuoLabz.Monetization.Binary.Installer.dll.meta": "d5f087a3696eb332126b31f1b22055e1370f01e37d2f7404f5b49d3a491508b9",
-    "Editor/DuoLabz.Monetization.Editor.dll": "54de07711afa60ea947c25425ffa5a9e9510492dcbc04b54b66f3e56d31558b3",
+    "Editor/DuoLabz.Monetization.Editor.dll": "23647028ab0417fa88274409770bd3a8d6b3ad8cdea47ca84074650304fbe067",
     "Editor/DuoLabz.Monetization.Editor.dll.meta": "72b76800f865433b549457d9f776947f11182494e52eae470c25461dd95672b2",
     "Editor.meta": "f9d7f8405e78801b7159a1bb0c63e4f1238cda953107ee7fdfdbf3585c86a1ce",
     "LICENSE.md": "efafc94157a679f3b294b3aeadbd163ca7a31cd4d1aa08dd4b04b36ed2836c6c",
@@ -12,16 +12,16 @@
     "Migration/source-script-map.json": "ff020a982593292738241325db4405037e2d12f69f10091abdc379685e50b7ab",
     "Migration/source-script-map.json.meta": "975555ea3bd5cd375b3a9278e389defedc8b9dd54cbfd4b20d092c90fc053518",
     "Migration.meta": "cf4e94c3ad42241d48a0e5a4485443216801ee251579609fa442cb780a23aebb",
-    "README.md": "5e51dfc5ce65fd3fe52442634dab0c0594b716ee3046627c7c9740345e7f082c",
+    "README.md": "6fed0c02e2d481df998ae8e1599ce0a12088214a032f3327fb574eb695d3a137",
     "README.md.meta": "c8ee5a06bd143d7ec25a4d5d29566ce57f0830ecfd4502ae06ab190b57b7e37b",
-    "Runtime/DuoLabz.Monetization.dll": "1df6e8c545b7b3b9995f4a955dfcd7ff8a10fc09aa776e76d8d6015c9ebbfde1",
+    "Runtime/DuoLabz.Monetization.dll": "91dc2ded261a94efe5749529fa575aff19d78ab68857a42ac6dff84addeb3733",
     "Runtime/DuoLabz.Monetization.dll.meta": "1899437329f12195073ea2fa1a9132cb31b29453bf8e212155834e70d7f15084",
     "Runtime/link.xml": "ab59a53a443b415b79528f49498ff57514d82342b342f39d536dcb50964f7ccf",
     "Runtime/link.xml.meta": "e409870251fa05ae48359b2cd230447a56389126afdb93de15a00ff921754f3e",
     "Runtime.meta": "793622061014a7242eca3da0ad38254f1cdb77c9f5f220e584991f5942066ba4",
     "Samples~/Basic Integration/MonetizationGameplayExample.cs": "ad2b64527c856a5483abf691a10af142595a8c0b5577c2cd01abd9d3e26146e9",
     "Samples~/Basic Integration/README.md": "76aa8bab0a3f0511a4cc5722c3c21108d9bcb3eb156e9e57b92c0b393c8d4098",
-    "package.json": "366acc82c55fe57e4b540e33fb7627fd13f45ad3d2077c81756fab3664ea049b",
+    "package.json": "e04d62934541d0e267a638666ffda7af5747517c4b60e885630f49baeb0a2f18",
     "package.json.meta": "c9a4f1f149b6b6ae1f0c64ff62704a5fd17413a9612999fa4958d5daa6afc308",
     "release-manifest.json.meta": "3f19b0a8cc185cab02b5865fa0ffc81688b68ce4c63a3f6a71f0997fd44d4317"
   }

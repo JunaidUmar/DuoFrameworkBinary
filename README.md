@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary release **2.5.0**, built for Unity **6000.4.1f1**. Adds Game Parameters, Framework Settings, and A/B group filters in Player Funnels. Physical-device acceptance for this release remains pending on Android and iOS.
+Binary release **2.6.0-rc.1**, built for Unity **6000.4.1f1**. Adds Game Parameters, Framework Settings, and A/B group filters in Player Funnels. Physical-device acceptance for this release remains pending on Android and iOS.
 
 ## SDK installation and cleanup
 
@@ -15,7 +15,7 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
-2. In Package Manager choose Add package from git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.5.0`. If you have the release ZIP, extract it and choose Add package from disk to select its `package.json`.
+2. In Package Manager choose Add package from git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.6.0-rc.1`. If you have the release ZIP, extract it and choose Add package from disk to select its `package.json`.
 
 3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Add the game's Firebase configuration files and AdMob app IDs using the official SDK tools.
@@ -24,6 +24,10 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 7. Add one bootstrap prefab to the game's first scene. Use `DuoMonetization` and `DuoAnalytics` in gameplay. See the Basic Integration sample.
 
 Official guides: [Google Mobile Ads](https://developers.google.com/admob/unity/quick-start), [Firebase Unity](https://firebase.google.com/docs/unity/setup).
+
+## Preview setup sync on staging
+
+Create the Duo settings asset and enter the public game ID and your per-game telemetry token. In **Setup Assistant → Sync from DuoPulse**, choose **Staging** and Android or iOS. Open the approval page, sign in to your staging dashboard, and copy the one-time approval code back into Unity. Review the saved AdMob app ID, Firebase client file and fallback ad units before applying. Use a QA project and make sure the selected platform's package or bundle ID matches the one saved in DuoPulse. Manual setup remains available.
 
 ## Optional progression and funnels
 
