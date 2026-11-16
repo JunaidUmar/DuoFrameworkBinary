@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary release **2.6.0**, built for Unity **6000.4.1f1**. Adds Unity Editor setup sync for the AdMob app ID, fallback ad unit IDs, and Firebase client configuration. Physical-device acceptance for this release remains pending on Android and iOS.
+Binary release **2.7.0**, built for Unity **6000.4.1f1**. Adds an optional loading screen before interstitial ads. Android and iOS physical-device validation of the loading screen remains pending.
 
 ## SDK installation and cleanup
 
@@ -15,7 +15,7 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
-2. In Package Manager choose Add package from git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.6.0`. If you have the release ZIP, extract it and choose Add package from disk to select its `package.json`.
+2. In Package Manager choose Add package from git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.7.0`. If you have the release ZIP, extract it and choose Add package from disk to select its `package.json`.
 
 3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Run Create or Repair Setup. This creates the settings asset, bootstrap prefab and `Assets/DuoMonetization/link.xml`. Keep the preservation file in the game; Unity does not support placing that file only inside a package.
@@ -24,6 +24,12 @@ Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.
 7. Add one bootstrap prefab to the game's first scene. Use `DuoMonetization` and `DuoAnalytics` in gameplay. See the Basic Integration sample.
 
 Official guides: [Google Mobile Ads](https://developers.google.com/admob/unity/quick-start), [Firebase Unity](https://firebase.google.com/docs/unity/setup).
+
+## Interstitial loading screen
+
+On the `DuoMonetizationBootstrap` component, **Show Interstitial Loading Screen** is checked by default. Uncheck it to show interstitials immediately. The built-in panel displays **Ad is loading** for **3 seconds**. Edit the text and duration in the Inspector.
+
+To use your own screen, assign an optional **Custom Interstitial Loading Panel**. Keep the panel under the bootstrap so it survives scene changes. Keep calling `DuoMonetization.ShowInterstitial(completed)` at the usual gameplay transitions. When no interstitial is ready, the completion callback runs immediately.
 
 ## Setup sync
 
