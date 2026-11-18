@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary release **2.7.0**, built for Unity **6000.4.1f1**. Adds an optional loading screen before interstitial ads. Android and iOS physical-device validation of the loading screen remains pending.
+Binary release **2.7.1** supports **Unity 2022.3 LTS and later**. Android and iOS physical-device validation of these compatibility changes remains pending.
 
 ## SDK installation and cleanup
 
@@ -10,12 +10,12 @@ The installer configures the narrow AdMob OpenUPM registry when needed, download
 
 Temporary `.part` files and imported/cancelled GameAnalytics `.unitypackage` downloads are removed automatically. **Referenced Firebase/Dependency Manager `.tgz` files are not disposable installers:** they stay in `Packages/DuoSdkArchives`. Commit that folder with `Packages/manifest.json` and `Packages/packages-lock.json` so teammates can resolve the same dependencies. **Clean unused setup files** removes only unchanged archives downloaded by Duo that no manifest, lock file or rollback backup references. Backups and user-owned files are preserved.
 
-Supported stable ranges: AdMob >=11.4.0 and <12.0.0; Firebase >=13.16.0 and <14.0.0 (all installed Firebase products must match); Dependency Manager >=1.2.186 and <2.0.0. Untested versions inside those ranges show a warning. Optional GameAnalytics is validated against 8.3.0. Major upgrades and prerelease SDKs require separate compatibility work. Direct source/download buttons remain available as an installation fallback.
+Minimum stable versions are AdMob **11.4.0**, Firebase **13.16.0**, and Google EDM4U **1.2.186** or Unity EDM **2.1.0**. The installer accepts later stable versions and flags releases that have yet to be tested with Duo. All installed Firebase products must use the same release. If Unity EDM is active, Duo recognizes it and ignores the empty Google EDM4U package that Unity can create. Optional GameAnalytics is validated with **8.3.0**.
 
 ## Installation
 
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
-2. In Package Manager choose Add package from git URL and enter `https://github.com/JunaidUmar/DuoFrameworkBinary.git#v2.7.0`. If you have the release ZIP, extract it and choose Add package from disk to select its `package.json`.
+2. In Package Manager choose Add package from git URL and use `https://github.com/JunaidUmar/DuoFrameworkBinary.git#<tag>`, replacing `<tag>` with the tag of the release you want to install. If you have the release ZIP, extract it and choose Add package from disk to select its `package.json`. [Binary releases](https://github.com/JunaidUmar/DuoFrameworkBinary/releases)
 
 3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Run Create or Repair Setup. This creates the settings asset, bootstrap prefab and `Assets/DuoMonetization/link.xml`. Keep the preservation file in the game; Unity does not support placing that file only inside a package.
