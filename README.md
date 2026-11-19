@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary release **2.7.1** supports **Unity 2022.3 LTS and later**. Android and iOS physical-device validation of these compatibility changes remains pending.
+Binary release **2.7.2** supports **Unity 2022.3 LTS and later**. Fixes Firebase plist validation for standard iOS files with line breaks or comments between the bundle-ID key and its value. Android and iOS physical-device testing remains pending.
 
 ## SDK installation and cleanup
 
