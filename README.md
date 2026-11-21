@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary release **2.7.2** supports **Unity 2022.3 LTS and later**. Fixes Firebase plist validation for standard iOS files with line breaks or comments between the bundle-ID key and its value. Android and iOS physical-device testing remains pending.
+Binary pre-release **2.8.0-rc.2** supports **Unity 2022.3 LTS and later**. Test Connect and Sync against the DuoPulse staging server. Android and iOS physical-device testing remains pending.
 
 ## SDK installation and cleanup
 
@@ -17,11 +17,10 @@ Minimum stable versions are AdMob **11.4.0**, Firebase **13.16.0**, and Google E
 1. Install Git; Git LFS is not required. The binary repository is public, so GitHub authentication and collaborator invitations are not required for installation. The software remains proprietary under the included license; public download does not grant unrestricted redistribution rights.
 2. In Package Manager choose Add package from git URL and use `https://github.com/JunaidUmar/DuoFrameworkBinary.git#<tag>`, replacing `<tag>` with the tag of the release you want to install. If you have the release ZIP, extract it and choose Add package from disk to select its `package.json`. [Binary releases](https://github.com/JunaidUmar/DuoFrameworkBinary/releases)
 
-3. Open Tools > DuoLabz > Monetization > Manage SDKs, then preview and install the recommended SDK selection. The installer is available even when Google/Firebase SDKs are missing. The DLLs activate after compatible dependencies resolve and Unity recompiles. Install dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
+3. For staging setup, set the project package name or bundle ID and select **Tools → DuoLabz → Monetization → Connect to DuoPulse**. If required SDKs are missing, the installer opens. Preview and approve the selection. Unity continues to browser approval after it compiles the SDKs. Use **Manage SDKs** to install dependencies separately. Install the dependencies before importing the usage sample or compiling gameplay scripts that call the framework.
 4. Run Create or Repair Setup. This creates the settings asset, bootstrap prefab and `Assets/DuoMonetization/link.xml`. Keep the preservation file in the game; Unity does not support placing that file only inside a package.
-5. Use Setup Sync below or add the game's Firebase client files, AdMob app IDs and fallback ad unit IDs manually.
-6. Configure the per-game telemetry endpoint and credential in the settings Inspector. Keep production credentials out of shared repositories and samples.
-7. Add one bootstrap prefab to the game's first scene. Use `DuoMonetization` and `DuoAnalytics` in gameplay. See the Basic Integration sample.
+5. If setting up manually, configure the game's Firebase client files, AdMob app ID, fallback ad unit IDs and telemetry settings. Keep production credentials out of shared repositories and samples.
+6. Use one bootstrap in the game's first scene. Use `DuoMonetization` and `DuoAnalytics` in gameplay. See the Basic Integration sample.
 
 Official guides: [Google Mobile Ads](https://developers.google.com/admob/unity/quick-start), [Firebase Unity](https://firebase.google.com/docs/unity/setup).
 
@@ -33,7 +32,7 @@ To use your own screen, assign an optional **Custom Interstitial Loading Panel**
 
 ## Setup sync
 
-Enter the public DuoPulse Game ID in the Unity settings asset. In **Setup Assistant → Sync from DuoPulse**, select **Production** or **Staging**, then Android or iOS. Open the approval page, sign in to DuoPulse, and paste the one-time approval code back into Unity. Review the proposed AdMob app ID, Firebase client file and fallback ad units before applying. The selected platform’s package name or bundle ID must match the value in DuoPulse. Sync is available with DuoPulse 1.9.0 or later and uses your account approval. The per-game telemetry token is configured separately.
+Set the Android package name or iOS bundle ID under Unity Player Settings. Select **Connect to DuoPulse** in the Tools menu or Setup Assistant. Use **Staging** for this pre-release. Sign in, check the app and short approval check displayed in Unity, and approve in the browser. Unity fills in the Game ID and any available AdMob app ID, Firebase client file and fallback ad units. Review any replacements in Unity before applying. A valid telemetry key already in Unity is preserved. On a fresh project, a studio manager or super admin can enable key access for assigned developers in DuoPulse under **Application overview → Telemetry access**.
 
 ## Optional progression and funnels
 
