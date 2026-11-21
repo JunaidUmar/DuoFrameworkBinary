@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary release **2.7.2** supports **Unity 2022.3 LTS and later**. Fixes Firebase plist validation for standard iOS files with line breaks or comments between the bundle-ID key and its value. Android and iOS physical-device testing remains pending.
+Binary pre-release **2.8.0-rc.1** supports **Unity 2022.3 LTS and later**. Test Connect and Sync against the DuoPulse staging server. Android and iOS physical-device testing remains pending.
 
 ## SDK installation and cleanup
 
@@ -33,7 +33,7 @@ To use your own screen, assign an optional **Custom Interstitial Loading Panel**
 
 ## Setup sync
 
-Enter the public DuoPulse Game ID in the Unity settings asset. In **Setup Assistant → Sync from DuoPulse**, select **Production** or **Staging**, then Android or iOS. Open the approval page, sign in to DuoPulse, and paste the one-time approval code back into Unity. Review the proposed AdMob app ID, Firebase client file and fallback ad units before applying. The selected platform’s package name or bundle ID must match the value in DuoPulse. Sync is available with DuoPulse 1.9.0 or later and uses your account approval. The per-game telemetry token is configured separately.
+Set the Android package name or iOS bundle ID under Unity Player Settings. In **Setup Assistant**, click **Connect to DuoPulse**. Use **Staging** for this pre-release. Sign in, check the app and short approval check displayed in Unity, and approve in the browser. Unity fills in the Game ID and any available AdMob app ID, Firebase client file and fallback ad units. Review any replacements in Unity before applying. A valid telemetry key already in Unity is preserved. On a fresh project, a studio manager or super admin can enable key access for assigned developers in DuoPulse under **Application overview → Telemetry access**.
 
 ## Optional progression and funnels
 
