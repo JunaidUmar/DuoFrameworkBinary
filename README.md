@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary release **2.8.0** supports **Unity 2022.3 LTS and later**. Connect and Sync installs missing SDKs with your approval and resumes setup after recompilation. Android and iOS physical-device testing remains pending.
+Binary release **2.8.1** supports **Unity 2022.3 LTS and later**. Connect and Sync installs missing SDKs with your approval and resumes setup after recompilation. Android and iOS physical-device testing remains pending.
 
 ## SDK installation and cleanup
 

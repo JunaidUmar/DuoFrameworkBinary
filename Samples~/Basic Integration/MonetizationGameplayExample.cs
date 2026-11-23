@@ -52,12 +52,12 @@ public sealed class MonetizationGameplayExample : MonoBehaviour
 
     public void OnLoadingScreenShown()
     {
-        DuoMonetization.SetStartupLoadingScreenVisible(true);
+        DuoMonetization.ShowAppOpen();
     }
 
     public void OnMainContentReady()
     {
-        DuoMonetization.MarkMainContentInteractive();
+        DuoMonetization.HideAppOpen();
     }
 
     public void OnPurchaseStarted()
