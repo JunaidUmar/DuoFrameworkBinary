@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary release **2.8.1** supports **Unity 2022.3 LTS and later**. Connect and Sync installs missing SDKs with your approval and resumes setup after recompilation. Android and iOS physical-device testing remains pending.
+Binary **2.8.2-rc.1** is a release candidate for testing the app-open splash-screen fix. The package supports **Unity 2022.3 LTS and later**. Android and iOS physical-device testing remains pending.
 
 ## SDK installation and cleanup
 
@@ -29,6 +29,19 @@ Official guides: [Google Mobile Ads](https://developers.google.com/admob/unity/q
 On the `DuoMonetizationBootstrap` component, **Show Interstitial Loading Screen** is checked by default. Uncheck it to show interstitials immediately. The built-in panel displays **Ad is loading** for **3 seconds**. Edit the text and duration in the Inspector.
 
 To use your own screen, assign an optional **Custom Interstitial Loading Panel**. Keep the panel under the bootstrap so it survives scene changes. Keep calling `DuoMonetization.ShowInterstitial(completed)` at the usual gameplay transitions. When no interstitial is ready, the completion callback runs immediately.
+
+## App-open ads on the startup splash
+
+Call `DuoMonetization.ShowAppOpen()` while the splash screen is visible. Use `Time.unscaledDeltaTime` for the loading animation so it can advance while the Unity Editor test ad pauses game time. When loading finishes, cancel any pending startup ad and keep the splash visible until an ad already on screen closes.
+
+```csharp
+DuoMonetization.HideAppOpen();
+while (FullScreenAdCoordinator.ActiveAdKind == FullScreenAdKind.AppOpen)
+{
+    yield return null;
+}
+// Activate the next scene here.
+```
 
 ## Setup sync
 
@@ -62,7 +75,7 @@ The app/environment-specific random Duo reference persists across sessions; clea
 
 Open the application's **Progression overview** or **Player funnels** in Console. Choices appear only after matching events are received. Optional empty hierarchy parts mean no further part, not any descendant. Reports support ordered/unordered steps after entry, completion windows, revisions, environments and CSV export. Dates select each installation's first matching entry, not all later outcomes. Pending is not confirmed churn. Reports may differ from vendor charts due to session/identity, timing and counting definitions. Server retries are deduplicated; vendor SDK delivery across crashes is not guaranteed exactly once.
 
-Validate each target platform, consent allow/deny, flat/nested paths, retries, offline/restart delivery, QA separation, SDK dashboards and known funnel journeys before rolling out to its production games. Production rollout is owner-approved on automated evidence; new Android/iOS physical-device testing of this release remains pending.
+Validate each target platform, consent allow/deny, flat/nested paths, retries, offline/restart delivery, QA separation, SDK dashboards and known funnel journeys before rolling out to production games.
 
 ## Upgrade from the source package
 
