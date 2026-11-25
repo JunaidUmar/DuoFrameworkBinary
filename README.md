@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary **2.8.2** supports **Unity 2022.3 LTS and later**. The app-open splash fix was verified in the Unity Editor. Android and iOS physical-device testing of the fix remains pending.
+Binary **2.8.3** supports **Unity 2022.3 LTS and later**. Connect to DuoPulse can sync the saved Android or iOS GameAnalytics keys for the selected platform. Android and iOS device acceptance for this release is pending.
 
 ## SDK installation and cleanup
 
@@ -51,7 +51,7 @@ Set the Android package name or iOS bundle ID under Unity Player Settings. Selec
 
 Enable **Progression Enabled** in Duo settings and select its server/Firebase/GameAnalytics destinations. It is disabled by default, preserving existing games. The existing standard telemetry endpoint resolves `/api/v1/progression/events`; use the same per-application credential.
 
-For GameAnalytics, install/configure the [official SDK](https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/game-engine-sdks/unity/) separately (validated against **8.3.0**, source revision `7f661deab09d5224fbd32af5c24f7259c11b238f`). Add Android/iOS keys in GameAnalytics settings. Remove other initialization and duplicate progression calls; Duo owns initialization after collection is allowed. Run **Create or Repair Setup** after upgrading to generate the game's updated preservation file for IL2CPP.
+For GameAnalytics, install the optional [official SDK](https://docs.gameanalytics.com/event-tracking-and-integrations/sdks-and-collection-api/game-engine-sdks/unity/) from **Manage SDKs**. With **8.3.0** installed, **Connect to DuoPulse** copies the saved Game Key and Secret Key for the selected platform into GameAnalytics settings when the server supports key sync. Run the sync for each platform you ship. You can also enter the keys in GameAnalytics settings. Remove other initialization and duplicate progression calls. Duo initializes GameAnalytics once collection is allowed. Run **Create or Repair Setup** after upgrading to generate the game's updated preservation file for IL2CPP.
 
 ```csharp
 using DuoLabz.Monetization;
