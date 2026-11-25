@@ -10,6 +10,10 @@ on:
         description: Stable Git tag to verify against the public npm package
         required: true
         type: string
+      check_signing:
+        description: Sign a test archive from the tag without publishing it
+        default: false
+        type: boolean
 
 permissions:
   contents: read
@@ -22,7 +26,7 @@ jobs:
   publish:
     if: github.repository == 'JunaidUmar/DuoFrameworkBinary' && github.event_name == 'push' && !github.event.deleted
     runs-on: ubuntu-24.04
-    timeout-minutes: 20
+    timeout-minutes: 25
     environment: npm-production
     permissions:
       contents: read
@@ -37,19 +41,33 @@ jobs:
           node-version: '24'
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
-      - name: Publish and verify the stable package
+      - name: Sign, publish, and verify the stable package
+        env:
+          UPM_ORGANIZATION_ID: ${{ vars.UPM_ORGANIZATION_ID }}
+          UPM_SERVICE_ACCOUNT_KEY_ID: ${{ secrets.UPM_SERVICE_ACCOUNT_KEY_ID }}
+          UPM_SERVICE_ACCOUNT_KEY_SECRET: ${{ secrets.UPM_SERVICE_ACCOUNT_KEY_SECRET }}
         run: python3 .github/scripts/publish-npm.py "$GITHUB_REF_NAME"
 
   verify:
-    if: github.repository == 'JunaidUmar/DuoFrameworkBinary' && github.event_name == 'workflow_dispatch'
+    if: github.repository == 'JunaidUmar/DuoFrameworkBinary' && github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 10
+    environment: npm-production
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           fetch-depth: 0
           persist-credentials: false
       - name: Compare the stable Git tag with npm
+        if: inputs.check_signing == false
         env:
           STABLE_TAG: ${{ inputs.tag }}
         run: python3 .github/scripts/publish-npm.py "$STABLE_TAG" --verify-only
+      - name: Test Unity signing without publishing
+        if: inputs.check_signing
+        env:
+          STABLE_TAG: ${{ inputs.tag }}
+          UPM_ORGANIZATION_ID: ${{ vars.UPM_ORGANIZATION_ID }}
+          UPM_SERVICE_ACCOUNT_KEY_ID: ${{ secrets.UPM_SERVICE_ACCOUNT_KEY_ID }}
+          UPM_SERVICE_ACCOUNT_KEY_SECRET: ${{ secrets.UPM_SERVICE_ACCOUNT_KEY_SECRET }}
+        run: python3 .github/scripts/publish-npm.py "$STABLE_TAG" --sign-only
