@@ -1,6 +1,6 @@
 {
   "name": "com.duolabz.monetization",
-  "version": "2.8.3",
+  "version": "2.9.0",
   "displayName": "Duo Monetization (Binary)",
   "description": "Production-oriented Firebase Remote Config, Google Mobile Ads, consent, app-open safety, and telemetry framework for DuoLabz Unity games.",
   "unity": "2022.3",

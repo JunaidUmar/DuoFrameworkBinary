@@ -1,6 +1,6 @@
 # Duo Monetization — binary package
 
-Binary **2.8.3** supports **Unity 2022.3 LTS and later**. Connect to DuoPulse can sync the saved Android or iOS GameAnalytics keys for the selected platform. Android and iOS device acceptance for this release is pending.
+Binary **2.9.0** supports **Unity 2022.3 LTS and later**. This release adds opt-in DuoPulse ad configuration. The Android staging candidate was exercised on a phone, and its configuration fetch was verified in Unity. iOS device acceptance is pending.
 
 ## SDK installation and cleanup
 
@@ -141,6 +141,10 @@ DuoMonetization.HideMediumRectangle();
 Configure calls may precede initialization; show/hide calls require the Duo instance. Call these APIs on Unity's main thread. Size changes reload while retaining visibility intent; position-only changes move existing views. `GetBannerSizeInPixels()` and `GetMediumRectangleSizeInPixels()` return actual loaded screen-pixel sizes, or zero before ready. Respect Canvas scaling when reserving UI space. Automatic-refresh flags must match AdMob's per-format settings. Physical Android/iOS validation remains pending.
 
 ## DuoPulse Game Settings
+
+Publish the Android and iOS draft in **Ad Unit Configuration → DuoPulse publishing**. In Unity, use **Connect to DuoPulse**, enable **Use DuoPulse Ad Configuration**, and choose the matching **Game Settings Environment**. Use Staging for QA. On the live console, developers publish to Development and managers or admins publish to Production. Firebase Remote Config is optional with the DuoPulse setting enabled. Existing Unity settings keep using Firebase Remote Config until you enable the new source. Keep publishing `admob_config` in Firebase for older installed builds that need ad configuration changes.
+
+DuoPulse builds request their platform's published inventory at startup. They check for changes every minute in Development and Staging and every five minutes in Production. A failed request retains the last valid revision. When a format has no usable remote IDs, Unity uses its Inspector fallback for that format. A new revision waits for any on-screen full-screen ad to close. The Unity log reports the active DuoPulse revision so QA can confirm which configuration was applied.
 
 Use DuoPulse 1.8.0 or later for Game Parameters and Framework Settings. In the application workspace, developers register stable keys with a type and default. Scoped studio managers edit draft values, preview and publish a version for Development, Staging or Production, or restore an earlier version as a new revision. Ad Unit Configuration has its own editor. Keep keys stable for installed builds and use a new key when a type changes.
 
